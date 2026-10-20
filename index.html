@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Код 404 — Команда системных администраторов</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --ink: #3b5360;
+    --paper: #f1fbf6;
+    --accent: #e8789f;
+    --accent2: #a8e6cf;
+    --accent3: #7bc4e2;
+    --accent4: #ffd1e0;
+    --accent5: #9bd8f0;
+    --bg-soft: #e3f6ee;
+    --card-bg: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'VT323', 'Courier New', monospace;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    overflow-x: hidden;
+    font-size: 20px;
+    background-image: radial-gradient(circle, rgba(123,196,226,0.18) 1px, transparent 1px);
+    background-size: 20px 20px;
+    image-rendering: pixelated;
+}
+
+/* ===== ШАПКА ===== */
+header {
+    background: var(--accent4);
+    color: var(--ink);
+    padding: 50px 20px 60px;
+    text-align: center;
+    position: relative;
+    border-bottom: 6px solid var(--ink);
+    overflow: hidden;
+}
+header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(123,196,226,0.18) 0 10px, transparent 10px 20px);
+    pointer-events: none;
+}
+header .pixel-dino {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+    animation: hop 1s steps(2, end) infinite;
+    display: inline-block;
+}
+@keyframes hop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+header h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 2px;
+    color: var(--ink);
+    text-shadow: 4px 4px 0 var(--accent);
+}
+header h1 .accent { color: var(--accent); text-shadow: 4px 4px 0 var(--ink); }
+header p.tagline {
+    font-size: 1.4rem;
+    position: relative;
+    z-index: 1;
+    max-width: 750px;
+    margin: 15px auto 0;
+    color: var(--ink);
+}
+header .window-bar {
+    position: absolute;
+    top: 12px;
+    left: 20px;
+    right: 20px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+}
+header .window-bar .dot {
+    width: 14px; height: 14px;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+}
+header .window-bar .dot.red { background: var(--accent); }
+header .window-bar .dot.yellow { background: var(--accent5); }
+header .window-bar .dot.green { background: var(--accent2); }
+header .window-bar .title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    margin-left: 10px;
+    color: var(--ink);
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+nav {
+    background: var(--ink);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 4px solid var(--accent);
+}
+nav a {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    color: var(--accent4);
+    text-decoration: none;
+    padding: 18px 20px;
+    transition: background 0.1s;
+    border-right: 2px solid var(--accent);
+    letter-spacing: 1px;
+}
+nav a:last-child { border-right: none; }
+nav a:hover, nav a.active { background: var(--accent); color: var(--paper); }
+
+/* ===== СЕКЦИИ ===== */
+section { max-width: 1200px; margin: 50px auto; padding: 0 25px; }
+h2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 8px 15px;
+    background: var(--accent4);
+    border: 4px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    letter-spacing: 1px;
+}
+.section-subtitle {
+    color: var(--ink);
+    font-size: 1.15rem;
+    margin: 10px 0 30px;
+    max-width: 800px;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+}
+
+/* ===== О КОМАНДЕ ===== */
+.about-box {
+    background: var(--card-bg);
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 35px;
+    margin-top: 20px;
+}
+.about-box p { font-size: 1.15rem; margin-bottom: 15px; color: var(--ink); }
+.about-box .highlight {
+    background: var(--accent4);
+    padding: 2px 6px;
+    border: 2px solid var(--ink);
+    font-weight: bold;
+}
+
+/* ===== ЭМБЛЕМА ===== */
+.emblem-section {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 40px;
+    align-items: center;
+    background: var(--card-bg);
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 40px;
+    margin-top: 20px;
+}
+.emblem-visual { text-align: center; }
+.emblem-circle {
+    width: 220px;
+    height: 220px;
+    border: 6px solid var(--ink);
+    background: var(--accent4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 10px 10px 0 var(--ink);
+    position: relative;
+    overflow: hidden;
+}
+.emblem-circle::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: var(--accent2);
+    border-top: 4px solid var(--ink);
+}
+.dino { font-size: 6rem; position: relative; z-index: 2; margin-bottom: 30px; }
+.cactus-left, .cactus-right {
+    position: absolute;
+    font-size: 2.2rem;
+    bottom: 30px;
+    z-index: 1;
+}
+.cactus-left { left: 20px; }
+.cactus-right { right: 20px; }
+.emblem-text h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+.emblem-text p { color: var(--ink); margin-bottom: 15px; font-size: 1.1rem; }
+
+/* ===== КОМАНДА ===== */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+.member-card {
+    background: var(--card-bg);
+    border: 4px solid var(--ink);
+    box-shadow: 6px 6px 0 var(--ink);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.member-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
+.card-top {
+    padding: 25px 20px 20px;
+    text-align: center;
+    background: var(--accent2);
+    border-bottom: 4px solid var(--ink);
+    color: var(--ink);
+}
+.avatar-circle {
+    width: 90px;
+    height: 90px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    margin: 0 auto 12px;
+    border: 4px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+}
+.card-top h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.role-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--accent4);
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-family: 'Press Start 2P', monospace;
+    letter-spacing: 1px;
+    border: 2px solid var(--ink);
+}
+.card-bottom { padding: 20px 22px 25px; flex-grow: 1; }
+.card-bottom p { color: var(--ink); font-size: 1.05rem; margin-bottom: 15px; }
+.task-list { list-style: none; padding: 0; }
+.task-list li {
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 6px 0 6px 24px;
+    position: relative;
+}
+.task-list li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+}
+
+/* ===== УЧЁБА ===== */
+.study-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+.study-card {
+    background: var(--card-bg);
+    border: 4px solid var(--ink);
+    box-shadow: 5px 5px 0 var(--ink);
+    padding: 22px;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+.study-card:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.study-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: inline-block;
+    padding: 6px 10px;
+    background: var(--accent4);
+    border: 3px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+}
+.study-card h4 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: var(--ink);
+}
+.study-card p { color: var(--ink); font-size: 1.05rem; }
+
+/* ===== ПРОЕКТ ===== */
+.project-box {
+    background: var(--accent3);
+    color: var(--paper);
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 40px;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.project-box::before {
+    content: '404';
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8rem;
+    color: rgba(241, 251, 246, 0.08);
+    line-height: 1;
+    pointer-events: none;
+}
+.project-box h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 1;
+    color: var(--paper);
+    line-height: 1.6;
+}
+.project-box h3 .accent { color: var(--accent4); }
+.project-box p { font-size: 1.15rem; margin-bottom: 15px; position: relative; z-index: 1; }
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+.project-tag {
+    background: var(--accent4);
+    color: var(--ink);
+    padding: 6px 14px;
+    border: 3px solid var(--ink);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+}
+
+/* ===== ИГРА ===== */
+#game { margin-top: 20px; }
+.game-shell {
+    background: var(--ink);
+    border: 6px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--accent3);
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+}
+.game-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--accent4);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+.game-topbar .title { display: flex; align-items: center; gap: 8px; }
+.game-topbar .title .dot {
+    width: 10px; height: 10px;
+    background: var(--accent5);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent5);
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    from { opacity: 0.4; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1.2); }
+}
+.game-topbar .scores span { color: #fff; }
+.game-topbar .binary-live {
+    font-family: 'VT323', monospace;
+    font-size: 0.95rem;
+    color: #b8f0d6;
+    letter-spacing: 1px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.game-topbar .binary-live .bin-bits {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #ffd1e0;
+}
+.game-canvas-wrap {
+    position: relative;
+    background: #dff3fb;
+    border: 4px solid var(--accent);
+    box-shadow: 0 0 18px rgba(232,120,159,0.55), inset 0 0 18px rgba(168,230,207,0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+#gameCanvas {
+    width: 100%;
+    height: 60vh;
+    max-height: 500px;
+    min-height: 320px;
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    cursor: pointer;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.game-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(59,83,96,0.9);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    text-align: center;
+    transition: opacity 0.3s;
+    z-index: 5;
+    overflow-y: auto;
+}
+.game-overlay.hidden { opacity: 0; pointer-events: none; }
+.game-overlay .big-emoji {
+    font-size: 3.4rem;
+    margin-bottom: 8px;
+    animation: hop 1s steps(2, end) infinite;
+}
+.game-overlay h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.95rem;
+    color: var(--accent5);
+    text-shadow: 2px 2px 0 #e8789f, -2px -2px 0 #a8e6cf;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+.game-overlay p {
+    font-family: 'VT323', monospace;
+    color: var(--accent4);
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+.game-overlay p strong { color: #fff; }
+.binary-result {
+    background: rgba(0, 0, 0, 0.35);
+    border: 3px solid #b8f0d6;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    width: 100%;
+    max-width: 520px;
+    text-align: left;
+    font-family: 'VT323', monospace;
+    color: #e8fff5;
+    font-size: 1.05rem;
+    box-shadow: 0 0 16px rgba(184, 240, 214, 0.4);
+}
+.binary-result .binary-label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #b8f0d6;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+}
+.binary-result .binary-code {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.62rem;
+    color: #ffd1e0;
+    word-break: break-all;
+    line-height: 1.8;
+    margin-bottom: 8px;
+    text-shadow: 0 0 8px rgba(255, 209, 224, 0.6);
+    letter-spacing: 1px;
+}
+.binary-result .binary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 4px 0;
+    border-top: 1px dashed rgba(184, 240, 214, 0.4);
+}
+.binary-result .binary-row:first-of-type { border-top: none; }
+.binary-result .binary-row .label { color: #b8f0d6; font-size: 0.95rem; }
+.binary-result .binary-row .value {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.85rem;
+    color: #fff;
+}
+.binary-result .decimal-value {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.05rem !important;
+    color: #ffd1e0 !important;
+    text-shadow: 0 0 10px rgba(255, 209, 224, 0.8);
+    animation: decimalGlow 1.5s ease-in-out infinite alternate;
+}
+@keyframes decimalGlow {
+    from { text-shadow: 0 0 8px rgba(255, 209, 224, 0.5); }
+    to { text-shadow: 0 0 18px rgba(255, 209, 224, 1); }
+}
+.trail-picker {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,182,193,0.5);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    width: 100%;
+    max-width: 420px;
+}
+.trail-picker .label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: #b8f0d6;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+.trail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.trail-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    padding: 8px 6px;
+    border-radius: 4px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.1s;
+    letter-spacing: 1px;
+}
+.trail-btn:active { transform: translate(2px, 2px); }
+.trail-btn.active { outline: 3px solid #b8f0d6; outline-offset: 1px; }
+.trail-btn.classic { background: #f9b8cf; color: #3b5360; border-color: #fff; }
+.trail-btn.synthwave { background: #a8d8f5; color: #3b5360; border-color: #fff; }
+.trail-btn.galaxy { background: #c9b8f0; color: #3b5360; border-color: #fff; }
+.trail-btn.fire { background: #ffd0b0; color: #3b5360; border-color: #fff; }
+.game-start-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    padding: 14px 22px;
+    border: 3px solid #fff;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #f9b8cf, #a8d8f5);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 5px 5px 0 #3b5360;
+    letter-spacing: 1px;
+    transition: transform 0.1s;
+    width: 100%;
+    max-width: 420px;
+}
+.game-start-btn:active { transform: translate(2px, 2px); box-shadow: 3px 3px 0 #3b5360; }
+.game-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    color: var(--accent4);
+    font-family: 'VT323', monospace;
+    font-size: 1.05rem;
+}
+.game-controls .hint { opacity: 0.8; }
+.touch-pad { display: flex; gap: 8px; flex-wrap: wrap; }
+.touch-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    padding: 12px 14px;
+    border: 3px solid var(--accent4);
+    background: var(--ink);
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #3b5360;
+    transition: transform 0.1s;
+    letter-spacing: 1px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+.touch-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #3b5360;
+    background: var(--accent);
+}
+.touch-btn.boost { background: #e8789f; border-color: #ffd1e0; }
+
+/* ===== ПОДВАЛ ===== */
+footer {
+    background: var(--ink);
+    color: var(--accent4);
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+    border-top: 6px solid var(--accent4);
+    font-size: 1.15rem;
+}
+footer p { margin-bottom: 8px; }
+footer .footer-emoji {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: hop 1s steps(2, end) infinite;
+}
+
+/* ===== ЧАТ ===== */
+.chat-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    color: var(--paper);
+    border: 4px solid var(--ink);
+    cursor: pointer;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 6px 6px 0 var(--ink);
+    z-index: 9999;
+    font-family: inherit;
+    transition: transform 0.1s, background 0.2s;
+}
+.chat-toggle:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--ink); }
+.chat-toggle.open { background: var(--ink); color: var(--accent4); }
+.chat-toggle .badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 14px; height: 14px;
+    background: #8fe0b8;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+}
+.chat-window {
+    position: fixed;
+    bottom: 105px;
+    right: 25px;
+    width: 390px;
+    max-width: calc(100vw - 30px);
+    height: 560px;
+    max-height: calc(100vh - 140px);
+    background: var(--paper);
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9998;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.chat-window.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.chat-header {
+    background: var(--accent);
+    color: var(--paper);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 4px solid var(--ink);
+    flex-shrink: 0;
+}
+.chat-avatar {
+    width: 42px;
+    height: 42px;
+    background: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 3px solid var(--ink);
+    flex-shrink: 0;
+}
+.chat-header-info { flex: 1; }
+.chat-header-info h4 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    margin-bottom: 2px;
+}
+.chat-header-info p { font-size: 0.95rem; display: flex; align-items: center; gap: 5px; }
+.chat-header-info p::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #8fe0b8;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+}
+.chat-actions { display: flex; gap: 6px; }
+.chat-btn-icon {
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    color: var(--accent4);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Press Start 2P', monospace;
+}
+.chat-btn-icon:hover { background: var(--paper); color: var(--ink); }
+.chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.chat-body::-webkit-scrollbar { width: 8px; }
+.chat-body::-webkit-scrollbar-track { background: var(--bg-soft); border-left: 2px solid var(--ink); }
+.chat-body::-webkit-scrollbar-thumb { background: var(--accent); }
+.msg {
+    max-width: 88%;
+    padding: 10px 14px;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    border: 3px solid var(--ink);
+    animation: msgIn 0.15s ease forwards;
+    position: relative;
+}
+@keyframes msgIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.msg.bot {
+    background: #ffffff;
+    color: var(--ink);
+    align-self: flex-start;
+    box-shadow: 4px 4px 0 var(--ink);
+}
+.msg.user {
+    background: var(--accent);
+    color: var(--paper);
+    align-self: flex-end;
+    box-shadow: 4px 4px 0 var(--ink);
+}
+.msg .time {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
+    font-family: 'Press Start 2P', monospace;
+}
+.msg-scroll-action {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--accent4);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    padding: 6px 10px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+}
+.msg-scroll-action:hover { background: var(--accent); color: #fff; }
+.typing {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    align-self: flex-start;
+    width: fit-content;
+}
+.typing span {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    animation: typingDot 1s steps(2, end) infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingDot {
+    0%, 60%, 100% { opacity: 0.3; }
+    30% { opacity: 1; }
+}
+.chat-suggestions {
+    padding: 10px 14px 4px;
+    background: var(--paper);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-shrink: 0;
+    max-height: 110px;
+    overflow-y: auto;
+    border-top: 2px dashed var(--accent2);
+}
+.chat-suggestion {
+    background: var(--accent4);
+    color: var(--ink);
+    border: 2px solid var(--ink);
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform 0.1s;
+}
+.chat-suggestion:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--ink);
+    background: var(--accent5);
+}
+.chat-footer {
+    padding: 10px 12px;
+    background: var(--paper);
+    border-top: 4px solid var(--ink);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+.chat-footer input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 3px solid var(--ink);
+    outline: none;
+    font-size: 1.05rem;
+    font-family: inherit;
+    background: #ffffff;
+    color: var(--ink);
+}
+.chat-footer input:focus { background: var(--bg-soft); }
+.chat-send {
+    width: 42px;
+    height: 42px;
+    background: var(--accent);
+    color: var(--paper);
+    border: 3px solid var(--ink);
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 3px 0 var(--ink);
+    flex-shrink: 0;
+    font-family: inherit;
+}
+.chat-send:hover { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink); }
+
+@media (max-width: 768px) {
+    body { font-size: 18px; }
+    header h1 { font-size: 1.3rem; }
+    header h1 .accent { text-shadow: 3px 3px 0 var(--ink); }
+    .emblem-section { grid-template-columns: 1fr; padding: 25px; }
+    .about-box, .project-box { padding: 25px; }
+    h2 { font-size: 1rem; }
+    nav a { padding: 12px 10px; font-size: 0.55rem; }
+    .chat-window {
+        right: 15px;
+        bottom: 85px;
+        width: calc(100vw - 30px);
+        height: 72vh;
+    }
+    .chat-toggle {
+        bottom: 18px;
+        right: 18px;
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+    #gameCanvas { height: 50vh; min-height: 280px; }
+    .game-controls { justify-content: center; }
+    .touch-pad { width: 100%; justify-content: center; }
+    .game-topbar { font-size: 0.55rem; }
+    .game-topbar .binary-live { font-size: 0.8rem; }
+    .binary-result .binary-code { font-size: 0.5rem; }
+    .binary-result .decimal-value { font-size: 0.85rem !important; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="window-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="title">team404.exe</span>
+    </div>
+    <div class="pixel-dino">🦖</div>
+    <h1>Команда <span class="accent">Код 404</span></h1>
+    <p class="tagline">Мы только начинаем путь в системном администрировании — но уже готовы показать, на что способны!</p>
+</header>
+
+<nav id="navbar">
+    <a href="#about">О НАС</a>
+    <a href="#emblem">ЭМБЛЕМА</a>
+    <a href="#team">КОМАНДА</a>
+    <a href="#study">УЧЁБА</a>
+    <a href="#project">ПРОЕКТ</a>
+    <a href="#game">ИГРА</a>
+</nav>
+
+<section id="about">
+    <h2>О НАШЕЙ КОМАНДЕ</h2>
+    <p class="section-subtitle">Кто мы и почему выбрали этот путь</p>
+    <div class="about-box">
+        <p>Мы — команда <span class="highlight">«Код 404»</span>, студенты 1 курса специальности «Системное администрирование». Мы только начинаем обучение, но уже объединились, чтобы вместе осваивать профессию и работать над реальными проектами.</p>
+        <p>Наш первый проект — этот <span class="highlight">сайт-визитка</span>. Мы сделали его, чтобы рассказать о себе, ролях, навыках и планах.</p>
+        <p>Мы верим, что системный администратор — не просто «человек, который чинит компьютеры». Это специалист, который обеспечивает стабильность инфраструктуры, защищает данные и помогает людям работать без сбоев.</p>
+    </div>
+</section>
+
+<section id="emblem">
+    <h2>НАША ЭМБЛЕМА</h2>
+    <p class="section-subtitle">Почему динозаврик и что означает «Код 404»</p>
+    <div class="emblem-section">
+        <div class="emblem-visual">
+            <div class="emblem-circle">
+                <span class="cactus-left">🌵</span>
+                <span class="dino">🦖</span>
+                <span class="cactus-right">🌵</span>
+            </div>
+        </div>
+        <div class="emblem-text">
+            <h3>ДИНОЗАВРИК, КОТОРЫЙ НЕ ДАСТ СЕТИ УПАСТЬ</h3>
+            <p>Этого динозаврика видел каждый: он появляется в Chrome, когда пропадает интернет. Это символ <strong>ошибки 404</strong>.</p>
+            <p>Мы выбрали его не случайно. Название команды «Код 404» и динозаврик символизируют нашу цель: сделать так, чтобы с нашей командой никаких «ошибок 404» не случалось.</p>
+        </div>
+    </div>
+</section>
+
+<section id="team">
+    <h2>НАША КОМАНДА</h2>
+    <p class="section-subtitle">Пять человек — одна цель: стать лучшими сисадминами</p>
+    <div class="team-grid">
+        <div class="member-card" id="member-timur">
+            <div class="card-top">
+                <div class="avatar-circle">👨‍💼</div>
+                <h3>ЛИ ТИМУР</h3>
+                <span class="role-badge">КОМАНДИР</span>
+            </div>
+            <div class="card-bottom">
+                <p>Руководит командой, распределяет задачи и представляет нас на защите проектов.</p>
+                <ul class="task-list">
+                    <li>Координирует команду</li>
+                    <li>Выступает с презентациями</li>
+                    <li>Принимает решения</li>
+                </ul>
+            </div>
+        </div>
+        <div class="member-card" id="member-andrey">
+            <div class="card-top">
+                <div class="avatar-circle">🎨</div>
+                <h3>ВАСИЛЬЕВ АНДРЕЙ</h3>
+                <span class="role-badge">ДИЗАЙНЕР</span>
+            </div>
+            <div class="card-bottom">
+                <p>Отвечает за визуальную часть: эмблему, оформление сайта и цветовую гамму.</p>
+                <ul class="task-list">
+                    <li>Дизайн сайта</li>
+                    <li>Создание эмблемы</li>
+                    <li>Оформление презентаций</li>
+                </ul>
+            </div>
+        </div>
+        <div class="member-card" id="member-yaroslav">
+            <div class="card-top">
+                <div class="avatar-circle">💻</div>
+                <h3>ИВАНОВ ЯРОСЛАВ</h3>
+                <span class="role-badge">ПРОГРАММИСТ</span>
+            </div>
+            <div class="card-bottom">
+                <p>Пишет код для сайта, отвечает за вёрстку и техническую часть проекта.</p>
+                <ul class="task-list">
+                    <li>HTML, CSS, JavaScript</li>
+                    <li>Настройка сайта</li>
+                    <li>Поиск и правка багов</li>
+                </ul>
+            </div>
+        </div>
+        <div class="member-card" id="member-nonna">
+            <div class="card-top">
+                <div class="avatar-circle">📝</div>
+                <h3>ЧЕБАН НОННА</h3>
+                <span class="role-badge">СЕКРЕТАРЬ</span>
+            </div>
+            <div class="card-bottom">
+                <p>Ведёт документацию команды, фиксирует идеи и договорённости.</p>
+                <ul class="task-list">
+                    <li>Записи встреч</li>
+                    <li>Документация</li>
+                    <li>Тексты для сайта</li>
+                </ul>
+            </div>
+        </div>
+        <div class="member-card" id="member-diana">
+            <div class="card-top">
+                <div class="avatar-circle">🎤</div>
+                <h3>ДОНИЁРОВА ДИАНА</h3>
+                <span class="role-badge">ПРЕЗЕНТАТОР</span>
+            </div>
+            <div class="card-bottom">
+                <p>Готовит презентации и помогает команде ярко защищать проекты.</p>
+                <ul class="task-list">
+                    <li>Создаёт слайды</li>
+                    <li>Помогает спикеру</li>
+                    <li>Подача материала</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="study">
+    <h2>ЧЕМУ МЫ УЧИМСЯ</h2>
+    <p class="section-subtitle">Наши дисциплины и направления подготовки</p>
+    <div class="study-grid">
+        <div class="study-card">
+            <div class="study-icon">🖥</div>
+            <h4>ОПЕРАЦИОННЫЕ СИСТЕМЫ</h4>
+            <p>Windows Server, Linux, настройка и администрирование ОС, командная строка и скрипты.</p>
+        </div>
+        <div class="study-card">
+            <div class="study-icon">🌐</div>
+            <h4>СЕТЕВЫЕ ТЕХНОЛОГИИ</h4>
+            <p>Построение сетей, IP-адресация, маршрутизация, коммутаторы и маршрутизаторы.</p>
+        </div>
+        <div class="study-card">
+            <div class="study-icon">🔒</div>
+            <h4>ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ</h4>
+            <p>Защита данных, права доступа, антивирусы и брандмауэры.</p>
+        </div>
+        <div class="study-card">
+            <div class="study-icon">🗄</div>
+            <h4>БАЗЫ ДАННЫХ</h4>
+            <p>SQL, проектирование БД, работа с СУБД и резервное копирование.</p>
+        </div>
+        <div class="study-card">
+            <div class="study-icon">⚙️</div>
+            <h4>АППАРАТНОЕ ОБЕСПЕЧЕНИЕ</h4>
+            <p>Устройство ПК, диагностика неисправностей, сборка и модернизация.</p>
+        </div>
+        <div class="study-card">
+            <div class="study-icon">💡</div>
+            <h4>ВЕБ-ТЕХНОЛОГИИ</h4>
+            <p>HTML, CSS, основы JavaScript. Этот сайт — наш первый практический опыт.</p>
+        </div>
+    </div>
+</section>
+
+<section id="project">
+    <h2>НАШ ПЕРВЫЙ ПРОЕКТ</h2>
+    <p class="section-subtitle">С чего всё началось</p>
+    <div class="project-box">
+        <h3>САЙТ-ВИЗИТКА <span class="accent">«КОД 404»</span></h3>
+        <p>Этот сайт — наш первый командный проект. Мы сделали его, чтобы рассказать о себе, команде и планах. Для нас это возможность применить на практике знания первого курса: вёрстку, работу с текстом, дизайн и командное взаимодействие.</p>
+        <p>Мы понимаем, что пока сайт простой. Но это только начало. Впереди — новые технологии, более сложные проекты и настоящие задачи системного администрирования.</p>
+        <div class="project-tags">
+            <span class="project-tag">#HTML</span>
+            <span class="project-tag">#CSS</span>
+            <span class="project-tag">#JS</span>
+            <span class="project-tag">#КОМАНДА</span>
+            <span class="project-tag">#1КУРС</span>
+            <span class="project-tag">#СИСАДМИНЫ</span>
+        </div>
+    </div>
+</section>
+
+<section id="game">
+    <h2>МИНИ-ИГРА</h2>
+    <p class="section-subtitle">Космический динозаврик собирает 1 и 0. Уворачивайся от астероидов и НЛО! В конце игры собранный двоичный код переведётся в десятичное число.</p>
+
+    <div class="game-shell">
+        <div class="game-topbar">
+            <div class="title"><span class="dot"></span> NYAN DINO: BINARY RUN</div>
+            <div class="scores">
+                РЕКОРД <span id="highScore">000000</span> &nbsp;|&nbsp; СЧЁТ <span id="currentScore">000000</span>
+            </div>
+            <div class="binary-live" id="binaryLive">
+                БИНАРНЫЙ КОД: <span class="bin-bits" id="binaryBits">—</span>
+            </div>
+        </div>
+
+        <div class="game-canvas-wrap">
+            <canvas id="gameCanvas" tabindex="0" aria-label="Игра: касайтесь или ведите пальцем/мышью по полю, чтобы двигать динозаврика"></canvas>
+
+            <div id="gameOverlay" class="game-overlay">
+                <div class="big-emoji">🦖🌈</div>
+                <h3 id="overlayTitle">NYAN DINO: BINARY RUN</h3>
+                <p id="overlaySubtitle">
+                    Летим сквозь космос! Собираем <strong>1</strong> и <strong>0</strong> — бинарный код.
+                    Уворачиваемся от астероидов, НЛО и мусора!
+                </p>
+
+                <div id="binaryResult" class="binary-result" style="display:none;"></div>
+
+                <div class="trail-picker">
+                    <div class="label">ВЫБЕРИ РАДУЖНЫЙ СЛЕД:</div>
+                    <div class="trail-grid">
+                        <button class="trail-btn classic active" data-trail="classic">🌈 CLASSIC</button>
+                        <button class="trail-btn synthwave" data-trail="synthwave">🌆 SYNTH</button>
+                        <button class="trail-btn galaxy" data-trail="galaxy">🌌 GALAXY</button>
+                        <button class="trail-btn fire" data-trail="fire">🔥 FIRE</button>
+                    </div>
+                </div>
+
+                <button id="startBtn" class="game-start-btn">ПРОБЕЛ / СТАРТ</button>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <div class="hint">УПРАВЛЕНИЕ: ↑/↓ или мышь | ПРОБЕЛ (турбо) | Тач-кнопки | Веди пальцем по полю</div>
+            <div class="touch-pad">
+                <button id="touchDown" class="touch-btn">⬇ ВНИЗ</button>
+                <button id="touchBoost" class="touch-btn boost">⚡ ТУРБО</button>
+                <button id="touchUp" class="touch-btn">⬆ ВВЕРХ</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-emoji">🦖</div>
+    <p><strong>КОМАНДА «КОД 404»</strong> — будущие системные администраторы</p>
+    <p>Первый курс · 2026 год · Первый проект</p>
+    <p>Ошибка 404 — это не про нас! 🚀</p>
+</footer>
+
+<!-- ЧАТ-БОТ СТРУКТУРА -->
+<button class="chat-toggle" id="chatToggle" aria-label="Открыть чат">🤖<span class="badge"></span></button>
+
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div class="chat-header-info">
+            <h4>БОТ 404</h4>
+            <p>онлайн AI-ассистент</p>
+        </div>
+        <div class="chat-actions">
+            <button class="chat-btn-icon" id="chatClear" title="Очистить историю">🗑️</button>
+            <button class="chat-btn-icon" id="chatClose" aria-label="Закрыть">X</button>
+        </div>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-suggestions" id="chatSuggestions"></div>
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Задайте вопрос..." autocomplete="off">
+        <button class="chat-send" id="chatSend" aria-label="Отправить">➤</button>
+    </div>
+</div>
+
+<script>
+/* ==================== ИНТЕРАКТИВНЫЙ УМНЫЙ ЧАТ-БОТ (БОТ 404) v2.1 ==================== */
+(function () {
+    const toggle = document.getElementById('chatToggle');
+    const win = document.getElementById('chatWindow');
+    const closeBtn = document.getElementById('chatClose');
+    const clearBtn = document.getElementById('chatClear');
+    const body = document.getElementById('chatBody');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('chatSend');
+    const suggestionsContainer = document.getElementById('chatSuggestions');
+
+    const MAX_INPUT = 300;
+    const MAX_MESSAGES = 120;
+
+    let quizScore = 0;
+    let quizTotal = 0;
+    let quizStreak = 0;
+    let quizBestStreak = 0;
+    let awaitingQuizAnswer = null;
+    let lastTopic = null;
+    let msgCount = 0;
+
+    /* ---------- утилиты ---------- */
+    function getCurrentTime() {
+        const d = new Date();
+        return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    }
+
+    function timeGreeting() {
+        const h = new Date().getHours();
+        if (h >= 5 && h < 12) return 'Доброе утро';
+        if (h >= 12 && h < 18) return 'Добрый день';
+        if (h >= 18 && h < 23) return 'Добрый вечер';
+        return 'Доброй ночи';
+    }
+
+    function escapeHTML(str) {
+        return String(str)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function scrollBottom() { body.scrollTop = body.scrollHeight; }
+
+    function trimHistory() {
+        while (body.querySelectorAll('.msg').length > MAX_MESSAGES) {
+            const first = body.querySelector('.msg');
+            if (first) first.remove(); else break;
+        }
+    }
+
+    /* ---------- окно ---------- */
+    function openChat() {
+        win.classList.add('open');
+        toggle.classList.add('open');
+        toggle.innerHTML = 'X';
+        setTimeout(() => input.focus(), 250);
+    }
+    function closeChat() {
+        win.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.innerHTML = '🤖<span class="badge"></span>';
+    }
+    toggle.addEventListener('click', () => win.classList.contains('open') ? closeChat() : openChat());
+    closeBtn.addEventListener('click', closeChat);
+
+    clearBtn.addEventListener('click', () => {
+        body.innerHTML = '';
+        quizScore = quizTotal = quizStreak = quizBestStreak = 0;
+        awaitingQuizAnswer = null;
+        lastTopic = null;
+        msgCount = 0;
+        addBotMessage('История очищена. С чего начнём?', [
+            'Кто в команде?', 'Загадка', 'Вопрос по информатике', 'Чему учитесь?'
+        ]);
+    });
+
+    /* ---------- сообщения ---------- */
+    function addMessage(text, who, scrollTarget = null, isHTML = false) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + who;
+
+        const safeText = isHTML ? text : escapeHTML(text);
+        let contentHTML = safeText;
+        if (scrollTarget) {
+            contentHTML += `<br><button class="msg-scroll-action" data-target="${scrollTarget}">📍 Перейти к секции</button>`;
+        }
+        contentHTML += `<span class="time">${getCurrentTime()}</span>`;
+        div.innerHTML = contentHTML;
+        body.appendChild(div);
+        msgCount++;
+        trimHistory();
+        scrollBottom();
+
+        const btn = div.querySelector('.msg-scroll-action');
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                const el = document.getElementById(e.currentTarget.dataset.target);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                    if (window.innerWidth < 768) closeChat();
+                }
+            });
+        }
+    }
+
+    function addBotMessage(text, suggestionsList = [], scrollTarget = null) {
+        addMessage(text, 'bot', scrollTarget, true);
+        updateSuggestions(suggestionsList);
+    }
+
+    function showTyping() {
+        const t = document.createElement('div');
+        t.className = 'typing';
+        t.id = 'typingIndicator';
+        t.innerHTML = '<span></span><span></span><span></span>';
+        body.appendChild(t);
+        scrollBottom();
+    }
+    function hideTyping() {
+        const t = document.getElementById('typingIndicator');
+        if (t) t.remove();
+    }
+
+    function updateSuggestions(list) {
+        suggestionsContainer.innerHTML = '';
+        const items = (list && list.length) ? list
+            : ['Кто в команде?', 'Загадка', 'Вопрос по информатике', 'Чему учитесь?'];
+        items.forEach(q => {
+            const btn = document.createElement('button');
+            btn.className = 'chat-suggestion';
+            btn.innerText = q;
+            btn.addEventListener('click', () => handleUserMessage(q));
+            suggestionsContainer.appendChild(btn);
+        });
+    }
+
+    /* ---------- нечёткое сравнение (опечатки) ---------- */
+    function levenshtein(a, b) {
+        if (a === b) return 0;
+        const m = a.length, n = b.length;
+        if (!m) return n; if (!n) return m;
+        let prev = new Array(n + 1);
+        for (let j = 0; j <= n; j++) prev[j] = j;
+        for (let i = 1; i <= m; i++) {
+            let cur = [i];
+            for (let j = 1; j <= n; j++) {
+                cur[j] = Math.min(
+                    prev[j] + 1,
+                    cur[j - 1] + 1,
+                    prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+                );
+            }
+            prev = cur;
+        }
+        return prev[n];
+    }
+
+    function fuzzyContains(text, kw) {
+        if (text.includes(kw)) return true;
+        if (kw.length < 4) return false;
+        const words = text.split(' ');
+        const tol = kw.length >= 7 ? 2 : 1;
+        return words.some(w => Math.abs(w.length - kw.length) <= tol &&
+            levenshtein(w, kw) <= tol);
+    }
+
+    function normalize(text) {
+        return String(text).toLowerCase()
+            .replace(/ё/g, 'е')
+            .replace(/[^a-zа-я0-9\s]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    /* ---------- интенты ---------- */
+    // ВАЖНО: salary идёт ПЕРВЫМ, чтобы при равном счёте выигрывать у общих тем.
+    const intents = [
+        {
+            id: 'salary',
+            keywords: [
+                'зарплат', 'заработок', 'заработа', 'зарабатыва', 'заработать',
+                'доход', 'деньги', 'оклад', 'оплата', 'платят', 'получает',
+                'сколько зарабатывает', 'сколько платят', 'сколько получает',
+                'зп', 'salary', 'money', 'зарплата', 'зарплату', 'зарплаты'
+            ],
+            responses: [
+                '💰 Средние зарплаты системных администраторов (2026 год):<br>• Junior (начинающий): 45 000 – 75 000 ₽<br>• Middle (опыт 2+ года): 85 000 – 160 000 ₽<br>• Senior / DevOps / SRE: 170 000 – 300 000+ ₽'
+            ],
+            suggestions: ['Как стать сисадмином?', 'Чему учитесь?', 'Куда пойти работать?'],
+            scroll: null
+        },
+        {
+            id: 'greeting',
+            keywords: ['привет', 'здравствуй', 'хай', 'hello', 'hi', 'прив', 'добрый', 'начать', 'старт', 'здарова'],
+            responses: [
+                () => `${timeGreeting()}! 👋 Я интеллектуальный <strong>Бот 404</strong>. Спроси о команде, учёбе, сисадминстве — или сыграй: «загадка» / «вопрос по информатике».`,
+            ],
+            suggestions: ['Кто в команде?', 'Загадка', 'Вопрос по информатике', 'Сколько зарабатывает сисадмин?'],
+            scroll: null
+        },
+        {
+            id: 'team-all',
+            keywords: ['кто в команде', 'состав команды', 'участники команды', 'сколько вас', 'вся команда', 'кто вы такие', 'состав'],
+            responses: [
+                'В нашей команде 5 человек:<br>👨‍💼 <strong>Ли Тимур</strong> — командир<br>🎨 <strong>Васильев Андрей</strong> — дизайнер<br>💻 <strong>Иванов Ярослав</strong> — программист<br>📝 <strong>Чебан Нонна</strong> — секретарь<br>🎤 <strong>Дониёрова Диана</strong> — презентатор'
+            ],
+            suggestions: ['Расскажи про Тимура', 'Кто программист?', 'Кто дизайнер?', 'Зачем вам секретарь?'],
+            scroll: 'team'
+        },
+        {
+            id: 'member-timur',
+            keywords: ['тимур', 'ли тимур', 'командир', 'глава команды', 'руководитель'],
+            responses: ['<strong>Ли Тимур</strong> — наш командир и главный спикер. Он распределяет задачи, координирует проекты и защищает их перед преподавателями! 🎯'],
+            suggestions: ['А что он ещё делает?', 'Кто дизайнер?', 'Кто программист?', 'Вся команда'],
+            scroll: 'member-timur'
+        },
+        {
+            id: 'member-andrey',
+            keywords: ['андрей', 'васильев', 'дизайнер', 'оформление сайта', 'визуал'],
+            responses: ['<strong>Васильев Андрей</strong> — дизайнер команды. Разработал эмблему с пиксельным динозавриком, подобрал цветовую гамму и оформил весь визуал. 🎨'],
+            suggestions: ['Покажи эмблему', 'Кто программист?', 'Кто командир?', 'А что он ещё делает?'],
+            scroll: 'member-andrey'
+        },
+        {
+            id: 'member-yaroslav',
+            keywords: ['ярослав', 'иванов', 'программист', 'кодер', 'разработчик'],
+            responses: ['<strong>Иванов Ярослав</strong> — наш программист. Он написал код для сайта (HTML, CSS, JS), сверстал интерактивные элементы и создал мини-игру! 💻'],
+            suggestions: ['Покажи игру', 'Расскажи про сайт', 'Вся команда', 'А что он ещё делает?'],
+            scroll: 'member-yaroslav'
+        },
+        {
+            id: 'member-nonna',
+            keywords: ['нонна', 'чебан', 'секретарь', 'документация команды'],
+            responses: ['<strong>Чебан Нонна</strong> — секретарь команды. Фиксирует идеи на встречах, готовит документацию и тексты для визитки. 📝'],
+            suggestions: ['Кто презентатор?', 'Кто командир?', 'Чему учитесь?', 'А что она ещё делает?'],
+            scroll: 'member-nonna'
+        },
+        {
+            id: 'member-diana',
+            keywords: ['диана', 'дониёрова', 'дониерова', 'презентатор', 'слайды'],
+            responses: ['<strong>Дониёрова Диана</strong> — презентатор. Создаёт крутые слайды и помогает доходчиво и ярко доносить наши идеи. 🎤'],
+            suggestions: ['Вся команда', 'Чему учитесь?', 'Перейти к проекту', 'А что она ещё делает?'],
+            scroll: 'member-diana'
+        },
+        {
+            id: 'name-404',
+            keywords: ['почему код 404', 'откуда название', 'ошибка 404', 'смысл названия', 'что значит 404', 'название'],
+            responses: ['🦖 «Код 404» — это знаменитая ошибка "Page Not Found". Наш девиз: сисадмины работают так, чтобы сбоев и ошибок 404 не происходило вовсе!'],
+            suggestions: ['Покажи эмблему', 'Вся команда', 'Загадка'],
+            scroll: 'emblem'
+        },
+        {
+            id: 'emblem',
+            keywords: ['эмблем', 'логотип', 'динозавр', 'динозаврик', 'как выглядит лого'],
+            responses: ['Наша эмблема — пиксельный динозаврик из Chrome. Он появляется, когда нет сети, а наша задача — вернуть сеть в строй! 🌵🦖🌵'],
+            suggestions: ['Покажи эмблему на странице', 'Почему код 404?', 'Вся команда'],
+            scroll: 'emblem'
+        },
+        {
+            id: 'study',
+            keywords: ['чему учит', 'предмет', 'дисциплин', 'что изучае', 'учеба', 'учёба', 'программа обучения', 'предметы'],
+            responses: [
+                'На 1 курсе мы осваиваем:<br>🖥 Операционные системы (Linux, Windows Server)<br>🌐 Сетевые технологии (IP, маршрутизация)<br>🔒 Информационная безопасность<br>🗄 Базы данных (SQL)<br>⚙️ Аппаратное обеспечение (сборка, диагностика ПК)<br>💡 Веб-технологии'
+            ],
+            suggestions: ['Зачем нужен Linux?', 'Что такое Docker?', 'С чего начать сисадмину?', 'Вопрос по информатике'],
+            scroll: 'study'
+        },
+        {
+            id: 'project',
+            keywords: ['проект', 'сайт визитка', 'первый проект', 'наш сайт', 'визитка'],
+            responses: ['Наш первый проект — интерактивный сайт-визитка! Мы написали его на чистом HTML, CSS и JS, добавили мини-игру и чат-бота. 🚀'],
+            suggestions: ['Перейти к проекту', 'Покажи игру', 'Кто программист?'],
+            scroll: 'project'
+        },
+        {
+            id: 'game',
+            keywords: ['игра', 'мини-игра', 'динозаврик игра', 'nyan dino', 'поиграть', 'запустить игру', 'играть', 'бинарный код', 'двоичный код'],
+            responses: ['У нас есть космическая мини-игра «NYAN DINO: BINARY RUN»! Управляй динозавриком, собирай бинарный код (1 и 0) и уворачивайся от астероидов. В конце игры весь собранный код переводится в десятичное число! 👾🔢'],
+            suggestions: ['Перейти к игре', 'Смена следа в игре', 'Правила игры'],
+            scroll: 'game'
+        },
+        {
+            id: 'linux',
+            keywords: ['linux', 'линукс', 'ubuntu', 'debian'],
+            responses: ['🐧 Linux — «сердце» серверного мира. Более 90% серверов в интернете работают на Linux. Мы активно изучаем командную строку и bash-скрипты!'],
+            suggestions: ['Чему учитесь?', 'Что такое Docker?', 'Вопрос по информатике'],
+            scroll: 'study'
+        },
+        {
+            id: 'docker',
+            keywords: ['docker', 'докер', 'контейнер', 'devops'],
+            responses: ['🐳 Docker позволяет упаковывать приложения в изолированные контейнеры. Это ключевой инструмент современного DevOps и системного администрирования.'],
+            suggestions: ['Чему учитесь?', 'Сколько зарабатывают?', 'Что такое Git?'],
+            scroll: null
+        },
+        {
+            id: 'git',
+            keywords: ['git', 'гит', 'github', 'версионный контроль', 'коммит'],
+            responses: ['🔀 Git — система контроля версий. С его помощью команда ведёт код, откатывает изменения и работает параллельно без конфликтов. Обязательный навык!'],
+            suggestions: ['Что такое Docker?', 'Чему учитесь?', 'С чего начать сисадмину?'],
+            scroll: null
+        },
+        {
+            id: 'security',
+            keywords: ['безопасность', 'кибербезопасность', 'хакер', 'взлом', 'защита данных', 'пароль'],
+            responses: ['🔒 Информационная безопасность — один из ключевых предметов. Изучаем права доступа, брандмауэры, шифрование и защиту от атак. Сисадмин — первый рубеж обороны!'],
+            suggestions: ['Чему учитесь?', 'Что такое DNS?', 'Вопрос по информатике'],
+            scroll: 'study'
+        },
+        {
+            id: 'network',
+            keywords: ['сеть', 'сети', 'сетевые технологии', 'ip', 'dns', 'роутер', 'коммутатор', 'маршрутизац'],
+            responses: ['🌐 Сетевые технологии — наш профильный предмет: IP-адресация, маршрутизация, DNS, коммутаторы и маршрутизаторы. Без сети не работает ни один сервис!'],
+            suggestions: ['Что такое DNS?', 'Чему учитесь?', 'Вопрос по информатике'],
+            scroll: 'study'
+        },
+        {
+            id: 'dns',
+            keywords: ['dns', 'днс', 'доменное имя'],
+            responses: ['🌍 DNS (Domain Name System) переводит удобные имена (например, example.com) в IP-адреса. Это «телефонная книга» интернета.'],
+            suggestions: ['Что такое IP?', 'Чему учитесь?', 'Вопрос по информатике'],
+            scroll: null
+        },
+        {
+            id: 'ip',
+            keywords: ['что такое ip', 'айпи', 'ip адрес', 'ip-адрес'],
+            responses: ['📮 IP-адрес — уникальный номер устройства в сети. Бывает IPv4 (например, 192.168.0.1) и IPv6. По нему данные находят нужный компьютер.'],
+            suggestions: ['Что такое DNS?', 'Чему учитесь?', 'Вопрос по информатике'],
+            scroll: null
+        },
+        {
+            id: 'career',
+            keywords: ['куда пойти работать', 'куда работать', 'профессия', 'карьера', 'где работать', 'кем работать'],
+            responses: ['🏢 Сисадмины нужны везде: в компаниях (IT-отдел), дата-центрах, банках, госструктурах. Можно расти в DevOps, SRE, инженера по безопасности или облачные технологии.'],
+            suggestions: ['Сколько зарабатывает?', 'Как стать сисадмином?', 'Чему учитесь?'],
+            scroll: null
+        },
+        {
+            id: 'how-start',
+            keywords: ['с чего начать', 'как стать сисадмином', 'как начать', 'с чего начать сисадмину', 'новичку'],
+            responses: ['🚀 Путь новичка: 1) основы ОС (Linux/Windows); 2) сети (IP, DNS, маски); 3) командная строка и скрипты; 4) виртуализация (VirtualBox/Docker); 5) практика — домашний сервер и проекты. Мы как раз этим и занимаемся!'],
+            suggestions: ['Чему учитесь?', 'Зачем нужен Linux?', 'Сколько зарабатывает?'],
+            scroll: 'study'
+        },
+        {
+            id: 'binary',
+            keywords: ['двоичная система', 'бинарный код', 'перевод в десятичную', 'как переводить', 'binary', 'двоичный код'],
+            responses: ['🧮 Двоичная система использует только 0 и 1. Каждая позиция — степень двойки (справа налево: 1, 2, 4, 8, 16...). Например: 1011 = 8 + 0 + 2 + 1 = 11. В нашей игре ты собираешь биты, а в конце они автоматически переводятся в десятичное число!'],
+            suggestions: ['Покажи игру', 'Вопрос по информатике', 'Загадка'],
+            scroll: 'game'
+        },
+        {
+            id: 'help',
+            keywords: ['помоги', 'что умеешь', 'что спросить', 'функции', 'возможности', 'твои навыки', 'команды'],
+            responses: ['Я умею: рассказывать о команде и участниках, о предметах и сисадминстве, о зарплатах и карьере. Могу загадать загадку, задать вопрос по информатике, показать твой счёт и прокрутить сайт к нужной секции!'],
+            suggestions: ['Кто в команде?', 'Чему учитесь?', 'Загадка', 'Вопрос по информатике'],
+            scroll: null
+        },
+        {
+            id: 'thanks',
+            keywords: ['спасибо', 'благодар', 'круто', 'класс', 'молодец'],
+            responses: ['Всегда рад помочь! 😊 Если что-то ещё интересно — спрашивай.', 'Пожалуйста! 🦖 Учись, играй и заглядывай ещё.'],
+            suggestions: ['Загадка', 'Вопрос по информатике', 'Кто в команде?'],
+            scroll: null
+        },
+        {
+            id: 'bye',
+            keywords: ['пока', 'до свидания', 'бай', 'прощай', 'увидимся'],
+            responses: ['До встречи! 👋 Удачи в учёбе и без ошибок 404!', 'Пока! 🦖 Возвращайся — я всегда онлайн.'],
+            suggestions: ['Кто в команде?', 'Загадка'],
+            scroll: null
+        },
+        {
+            id: 'riddle',
+            keywords: ['загадка', 'загадай', 'загадку', 'ребус', 'головоломка'],
+            responses: [],
+            suggestions: ['Ещё загадку', 'Вопрос по информатике', 'Мой счёт', 'Кто в команде?'],
+            scroll: null,
+            handler: () => {
+                const riddles = [
+                    { q: '🧩 Он бывает локальным, глобальным и даже беспроводным. Без него не работает ни один сайт. Что это?', a: 'сеть', hint: 'С ним связано слово «Интернет».' },
+                    { q: '🧩 Я храню все файлы, но не имею рук. Я бываю жёстким, но не имею характера. Что это?', a: 'диск', hint: 'Бывает HDD и SSD.' },
+                    { q: '🧩 У меня есть память, но я не помню прошлого. Я работаю, пока есть питание. Что это?', a: 'оперативная память', hint: 'Кратко — RAM.' },
+                    { q: '🧩 Я — мозг компьютера, но не думаю как человек. Я считаю миллиарды операций в секунду. Что это?', a: 'процессор', hint: 'Его называют CPU.' },
+                    { q: '🧩 Я появляюсь, когда страница не найдена, и пугаю пользователей. Что это за код?', a: '404', hint: 'Созвучно названию нашей команды.' },
+                    { q: '🧩 Я — вредоносная программа, которая размножается и заражает файлы. Что это?', a: 'вирус', hint: 'От него защищает антивирус.' },
+                    { q: '🧩 Я перевожу доменные имена в IP-адреса. Без меня интернет был бы неудобным. Что это?', a: 'dns', hint: 'Аббревиатура из трёх букв.' },
+                    { q: '🧩 Я соединяю компьютеры в единую сеть и раздаю IP-адреса. Что это?', a: 'роутер', hint: 'Ещё его называют маршрутизатором.' },
+                    { q: '🧩 Я — программа, которая управляет всеми устройствами компьютера. Что это?', a: 'операционная система', hint: 'Windows, Linux, macOS.' },
+                    { q: '🧩 Я храню данные в виде таблиц и отвечаю на SQL-запросы. Что это?', a: 'база данных', hint: 'Сокращённо — БД.' }
+                ];
+                const r = riddles[Math.floor(Math.random() * riddles.length)];
+                awaitingQuizAnswer = { correct: r.a, hint: r.hint, kind: 'riddle' };
+                return { text: r.q + '<br><br><em>Напиши ответ в чат! Подсказка: ' + r.hint + '</em>' };
+            }
+        },
+        {
+            id: 'quiz',
+            keywords: ['вопрос по информатике', 'викторина', 'quiz', 'проверь меня', 'информатика вопрос', 'задай вопрос по информатике'],
+            responses: [],
+            suggestions: ['Ещё вопрос', 'Загадка', 'Мой счёт', 'Кто в команде?'],
+            scroll: null,
+            handler: () => {
+                const questions = [
+                    { q: '❓ Сколько бит в одном байте?', a: '8', hint: 'Это степень двойки.' },
+                    { q: '❓ Как называется устройство для хранения данных на магнитных дисках?', a: 'винчестер', hint: 'Ещё его зовут HDD.' },
+                    { q: '❓ Какая система счисления используется в компьютерах?', a: 'двоичная', hint: 'Только 0 и 1.' },
+                    { q: '❓ Что означает аббревиатура ОЗУ?', a: 'оперативное запоминающее устройство', hint: 'RAM по-английски.' },
+                    { q: '❓ Как называется программа для просмотра веб-страниц?', a: 'браузер', hint: 'Chrome, Firefox, Edge.' },
+                    { q: '❓ Сколько байт в одном килобайте (по классике)?', a: '1024', hint: 'Степень двойки, близкая к 1000.' },
+                    { q: '❓ Как называется язык разметки гипертекста?', a: 'html', hint: 'На нём написан этот сайт.' },
+                    { q: '❓ Что расшифровывается как CPU?', a: 'центральный процессор', hint: 'Central Processing Unit.' },
+                    { q: '❓ Как называется вредоносная программа, шифрующая файлы и требующая выкуп?', a: 'шифровальщик', hint: 'Ransomware.' },
+                    { q: '❓ Какой протокол используется для защищённой передачи данных в вебе?', a: 'https', hint: 'С замком в адресной строке.' },
+                    { q: '❓ Как называется устройство, которое соединяет компьютеры в локальную сеть?', a: 'коммутатор', hint: 'Ещё его зовут switch.' },
+                    { q: '❓ Что означает аббревиатура IP?', a: 'интернет протокол', hint: 'Internet Protocol.' },
+                    { q: '❓ Как называется самая маленькая единица информации?', a: 'бит', hint: 'Binary digit.' },
+                    { q: '❓ Как называется постоянное запоминающее устройство?', a: 'пзу', hint: 'ROM по-английски.' },
+                    { q: '❓ Что такое "баг" в программировании?', a: 'ошибка', hint: 'От английского "bug" — жук.' }
+                ];
+                const q = questions[Math.floor(Math.random() * questions.length)];
+                awaitingQuizAnswer = { correct: q.a, hint: q.hint, kind: 'quiz' };
+                quizTotal++;
+                return { text: q.q + '<br><br><em>Напиши ответ в чат! Подсказка: ' + q.hint + '</em>' };
+            }
+        },
+        {
+            id: 'quiz-score',
+            keywords: ['мой счёт', 'мой счет', 'сколько правильных', 'мой результат', 'статистика', 'счёт'],
+            responses: [],
+            suggestions: ['Ещё вопрос', 'Загадка', 'Вопрос по информатике', 'Кто в команде?'],
+            scroll: null,
+            handler: () => {
+                const pct = quizTotal ? Math.round((quizScore / quizTotal) * 100) : 0;
+                return {
+                    text: `📊 Счёт: <strong>${quizScore}</strong> из <strong>${quizTotal}</strong> (${pct}%).<br>` +
+                          `🔥 Серия: <strong>${quizStreak}</strong> · 🏆 Рекорд серии: <strong>${quizBestStreak}</strong>.`
+                };
+            }
+        }
+    ];
+
+    /* ---------- контекстные уточнения ---------- */
+    const followUps = {
+        'member-timur': 'Тимур также следит за дедлайнами, договаривается о встречах и держит связь с преподавателем. 🎯',
+        'member-andrey': 'Андрей подбирал шрифты, палитру и продумывал пиксельный стиль с динозавриком. 🎨',
+        'member-yaroslav': 'Ярослав добавил мини-игру на Canvas и этого умного бота. 💻',
+        'member-nonna': 'Нонна отвечает за протоколы встреч и следит, чтобы ничего не потерялось. 📝',
+        'member-diana': 'Диана помогает командиру и делает акцент на живой подаче материала. 🎤'
+    };
+
+    function matchIntent(userText) {
+        const text = normalize(userText);
+        if (!text) return null;
+
+        // Быстрый матч по корням — приоритетнее остальных
+        const quickMap = [
+            { re: /(заработ|зарабат|зарплат|\bзп\b|оклад|доход|money|salary|платят|получает)/, id: 'salary' },
+            { re: /(привет|здравств|hello|\bhi\b)/, id: 'greeting' },
+            { re: /(загадк|загадай|ребус)/, id: 'riddle' },
+            { re: /(викторин|вопрос по информатике|quiz)/, id: 'quiz' }
+        ];
+        for (const q of quickMap) {
+            if (q.re.test(text)) {
+                const found = intents.find(i => i.id === q.id);
+                if (found) return found;
+            }
+        }
+
+        if (lastTopic && /^(а что он|а что она|а что еще|а что ещё|а ещё|ещё|подробнее)/.test(text)) {
+            return { id: 'follow-up', contextual: lastTopic };
+        }
+
+        let best = null, bestScore = 0;
+        intents.forEach(intent => {
+            let score = 0;
+            intent.keywords.forEach(kw => {
+                const k = normalize(kw);
+                if (!k) return;
+                if (text === k) score += k.length * 5;
+                else if (text.startsWith(k)) score += k.length * 2;
+                else if (text.includes(k)) score += k.length;
+                else if (fuzzyContains(text, k)) score += k.length * 0.6;
+            });
+            if (score > bestScore) { bestScore = score; best = intent; }
+        });
+        return best;
+    }
+
+    function checkAnswer(userAnswer, correctAnswer) {
+        const user = normalize(userAnswer);
+        const correct = normalize(correctAnswer);
+        if (!user || !correct) return false;
+        if (user === correct) return true;
+        if (correct.includes(user) && user.length >= 2) return true;
+        if (user.includes(correct)) return true;
+        if (/^\d+$/.test(user) && correct.includes(user)) return true;
+        if (levenshtein(user, correct) <= 1 && correct.length > 3) return true;
+        return false;
+    }
+
+    function handleUserMessage(text) {
+        if (!text || !text.trim()) return;
+        const raw = text.trim().slice(0, MAX_INPUT);
+        addMessage(raw, 'user');
+        input.value = '';
+        showTyping();
+
+        if (awaitingQuizAnswer) {
+            const isCorrect = checkAnswer(raw, awaitingQuizAnswer.correct);
+            const pending = awaitingQuizAnswer;
+            awaitingQuizAnswer = null;
+
+            const delay = 350 + Math.random() * 250;
+            setTimeout(() => {
+                hideTyping();
+                if (isCorrect) {
+                    quizScore++; quizStreak++;
+                    if (quizStreak > quizBestStreak) quizBestStreak = quizStreak;
+                    addBotMessage(
+                        `✅ <strong>Правильно!</strong> Ответ: «${pending.correct}».` +
+                        (pending.kind === 'quiz'
+                            ? `<br>Счёт: <strong>${quizScore}</strong> из <strong>${quizTotal}</strong> · серия: 🔥${quizStreak}`
+                            : '<br>Молодец! 🎉'),
+                        ['Ещё вопрос', 'Ещё загадку', 'Мой счёт', 'Кто в команде?']
+                    );
+                } else {
+                    quizStreak = 0;
+                    addBotMessage(
+                        `❌ <strong>Не совсем.</strong> Правильный ответ: «${pending.correct}».<br>Не расстраивайся, попробуй ещё!`,
+                        ['Ещё вопрос', 'Ещё загадку', 'Мой счёт', 'Чему учитесь?']
+                    );
+                }
+            }, delay);
+            return;
+        }
+
+        const matched = matchIntent(raw);
+        const delay = 300 + Math.min(1200, (matched ? 400 : 200) + raw.length * 8);
+
+        setTimeout(() => {
+            hideTyping();
+
+            if (!matched) {
+                addBotMessage(
+                    '🤔 Я пока не понял вопрос. Попробуй один из популярных вопросов ниже — или спроси про команду, учёбу, загадку, информатику.',
+                    ['Кто в команде?', 'Загадка', 'Вопрос по информатике', 'Чему учитесь?', 'Что умеешь?']
+                );
+                return;
+            }
+
+            if (matched.id === 'follow-up' && followUps[matched.contextual]) {
+                addBotMessage(followUps[matched.contextual], ['Вся команда', 'Чему учитесь?', 'Загадка']);
+                return;
+            }
+
+            lastTopic = matched.id;
+
+            if (matched.handler) {
+                const result = matched.handler();
+                if (result && result.text) addBotMessage(result.text, matched.suggestions, matched.scroll);
+                return;
+            }
+
+            const responses = Array.isArray(matched.responses) ? matched.responses : [matched.responses];
+            let resp = responses[Math.floor(Math.random() * responses.length)];
+            if (typeof resp === 'function') resp = resp();
+            addBotMessage(resp, matched.suggestions, matched.scroll);
+        }, delay);
+    }
+
+    sendBtn.addEventListener('click', () => handleUserMessage(input.value));
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); handleUserMessage(input.value); }
+    });
+
+    addBotMessage(
+        `${timeGreeting()}! 👋 Я интерактивный бот команды <strong>«Код 404»</strong>. Спроси о команде, учёбе, сисадминах — или сыграй: «загадка» / «вопрос по информатике».`,
+        ['Кто в команде?', 'Загадка', 'Вопрос по информатике', 'Сколько зарабатывают?']
+    );
+})();
+
+/* ==================== ИГРА NYAN DINO: BINARY RUN ==================== */
+(function () {
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = 900;
+    canvas.height = 450;
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudio() {
+        if (!AudioContext) return;
+        try {
+            if (!audioCtx) audioCtx = new AudioContext();
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        } catch (_) { audioCtx = null; }
+    }
+
+    function playSound(type) {
+        if (!audioCtx) return;
+        try {
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'eat') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.12);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                osc.start(now); osc.stop(now + 0.12);
+            } else if (type === 'boost') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.linearRampToValueAtTime(800, now + 0.22);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+                osc.start(now); osc.stop(now + 0.22);
+            } else if (type === 'hit') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.exponentialRampToValueAtTime(40, now + 0.3);
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            }
+        } catch (_) {}
+    }
+
+    let gameState = 'START';
+    let score = 0;
+    let highScore = 0;
+    try {
+        const saved = Number(localStorage.getItem('nyan_dino_highscore_v2'));
+        if (Number.isSafeInteger(saved) && saved >= 0) highScore = saved;
+    } catch (_) {}
+    let baseSpeed = 5;
+    let gameSpeed = 5;
+    let frameCount = 0;
+    let selectedTrail = 'classic';
+    let isBoosting = false;
+    let binaryString = '';
+
+    const highScoreEl = document.getElementById('highScore');
+    const currentScoreEl = document.getElementById('currentScore');
+    const binaryBitsEl = document.getElementById('binaryBits');
+    const binaryResultEl = document.getElementById('binaryResult');
+    highScoreEl.innerText = String(highScore).padStart(6, '0');
+
+    document.querySelectorAll('.trail-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.trail-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedTrail = btn.dataset.trail;
+            initAudio();
+            playSound('eat');
+        });
+    });
+
+    const trailPalettes = {
+        classic:   ['#f7a8c4', '#ffd0b0', '#fff0a8', '#b5ebc8', '#a8d8f5', '#c9b8f0'],
+        synthwave: ['#f48fb1', '#d7a8f0', '#a8b8f5', '#8fd8f0', '#a8f0e8'],
+        galaxy:    ['#c9b8f0', '#9ec5f4', '#7fa8e0', '#6b8ccc'],
+        fire:      ['#ffd0b0', '#ffc2d6', '#f9a8c0', '#f27fa6', '#d96b92']
+    };
+
+    const stars = [];
+    for (let i = 0; i < 90; i++) {
+        stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() > 0.8 ? 3 : (Math.random() > 0.5 ? 2 : 1),
+            speed: Math.random() * 2 + 0.5,
+            color: ['#f7a8c4', '#8fd3b6', '#7cc6e8', '#c9b6f0'][Math.floor(Math.random() * 4)]
+        });
+    }
+
+    const dino = {
+        x: 100, y: 200, width: 52, height: 40,
+        vy: 0, speed: 6,
+        trailHistory: [],
+        reset() { this.x = 100; this.y = 200; this.vy = 0; this.trailHistory = []; },
+        update() {
+            this.y += this.vy;
+            if (this.y < 10) this.y = 10;
+            if (this.y > canvas.height - 50) this.y = canvas.height - 50;
+            this.trailHistory.unshift({ x: this.x + 8, y: this.y + 16 + Math.sin(frameCount * 0.3) * 4 });
+            if (this.trailHistory.length > 30) this.trailHistory.pop();
+        },
+        draw() {
+            const colors = trailPalettes[selectedTrail] || trailPalettes.classic;
+            const stripeHeight = 6;
+            for (let i = this.trailHistory.length - 1; i > 0; i--) {
+                const pt = this.trailHistory[i];
+                const waveOffset = Math.sin((frameCount - i) * 0.4) * 4;
+                colors.forEach((color, idx) => {
+                    ctx.fillStyle = color;
+                    ctx.fillRect(
+                        pt.x - (i * 11),
+                        pt.y + (idx * stripeHeight) - (colors.length * stripeHeight / 2) + waveOffset,
+                        13, stripeHeight
+                    );
+                });
+            }
+            const x = this.x, y = this.y;
+            const bob = Math.sin(frameCount * 0.2) * 3;
+            ctx.fillStyle = '#f48fb1';
+            ctx.fillRect(x + 12, y + 8 + bob, 26, 24);
+            ctx.fillStyle = '#fde4ee';
+            ctx.fillRect(x + 14, y + 10 + bob, 22, 20);
+            ctx.fillStyle = '#7cc6e8';
+            ctx.fillRect(x + 18, y + 14 + bob, 3, 3);
+            ctx.fillStyle = '#ffc2d6';
+            ctx.fillRect(x + 28, y + 18 + bob, 3, 3);
+            ctx.fillStyle = '#7fd8b0';
+            ctx.fillRect(x + 32, y + 2 + bob, 18, 18);
+            ctx.fillRect(x + 42, y + 12 + bob, 10, 8);
+            ctx.fillStyle = '#3b5360';
+            ctx.fillRect(x + 42, y + 6 + bob, 3, 3);
+            ctx.fillStyle = '#5cbf93';
+            if (Math.floor(frameCount / 5) % 2 === 0) {
+                ctx.fillRect(x + 14, y + 32 + bob, 6, 6);
+                ctx.fillRect(x + 28, y + 32 + bob, 6, 6);
+            } else {
+                ctx.fillRect(x + 18, y + 32 + bob, 6, 6);
+                ctx.fillRect(x + 32, y + 32 + bob, 6, 6);
+            }
+            if (isBoosting) {
+                ctx.fillStyle = '#f27fa6';
+                ctx.fillRect(x - 12, y + 16 + bob, 12, 8);
+                ctx.fillStyle = '#ffc2d6';
+                ctx.fillRect(x - 8, y + 18 + bob, 8, 4);
+            }
+        }
+    };
+
+    let obstacles = [];
+    let items = [];
+    let particles = [];
+
+    class Obstacle {
+        constructor() {
+            this.x = canvas.width + 40;
+            this.y = Math.random() * (canvas.height - 100) + 30;
+            this.type = Math.random() < 0.5 ? 'asteroid' : 'ufo';
+            if (this.type === 'asteroid') {
+                this.width = 36; this.height = 36;
+                this.speedOffset = Math.random() * 1.5;
+            } else {
+                this.width = 42; this.height = 26;
+                this.speedOffset = 1.2;
+                this.floatTimer = Math.random() * 10;
+            }
+        }
+        update() {
+            this.x -= gameSpeed + this.speedOffset;
+            if (this.type === 'ufo') {
+                this.floatTimer += 0.08;
+                this.y += Math.sin(this.floatTimer) * 1.5;
+            }
+        }
+        draw() {
+            if (this.type === 'asteroid') {
+                ctx.fillStyle = '#a9bcc7';
+                ctx.fillRect(this.x + 6, this.y, 24, 36);
+                ctx.fillRect(this.x, this.y + 6, 36, 24);
+                ctx.fillStyle = '#7f97a5';
+                ctx.fillRect(this.x + 8, this.y + 8, 8, 8);
+            } else {
+                ctx.fillStyle = '#7cc6e8';
+                ctx.fillRect(this.x + 12, this.y, 16, 8);
+                ctx.fillStyle = '#9ec5f4';
+                ctx.fillRect(this.x, this.y + 8, 42, 12);
+                ctx.fillStyle = Math.floor(frameCount / 10) % 2 === 0 ? '#ffc2d6' : '#f27fa6';
+                ctx.fillRect(this.x + 6, this.y + 20, 6, 6);
+                ctx.fillRect(this.x + 30, this.y + 20, 6, 6);
+            }
+        }
+    }
+
+    class CosmicItem {
+        constructor() {
+            this.x = canvas.width + 30;
+            this.y = Math.random() * (canvas.height - 120) + 40;
+            this.width = 30; this.height = 30;
+            this.symbol = Math.random() < 0.5 ? '1' : '0';
+            this.color = this.symbol === '1' ? '#6cc9e8' : '#f48fb1';
+            this.bobPhase = Math.random() * Math.PI * 2;
+        }
+        update() { this.x -= gameSpeed; }
+        draw() {
+            const x = this.x;
+            const y = this.y + Math.sin((frameCount + this.bobPhase) * 0.08) * 3;
+            ctx.save();
+            ctx.shadowColor = this.color;
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = 'rgba(255,255,255,0.75)';
+            ctx.fillRect(x - 2, y - 2, 34, 34);
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x - 2, y - 2, 34, 34);
+            ctx.fillStyle = this.color;
+            ctx.font = 'bold 24px "Press Start 2P", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.symbol, x + 15, y + 16);
+            ctx.restore();
+        }
+    }
+
+    class Particle {
+        constructor(x, y, color) {
+            this.x = x; this.y = y;
+            this.vx = (Math.random() - 0.5) * 6;
+            this.vy = (Math.random() - 0.5) * 6;
+            this.size = Math.random() * 4 + 2;
+            this.color = color;
+            this.life = 1.0;
+        }
+        update() { this.x += this.vx; this.y += this.vy; this.life -= 0.05; }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = Math.max(0, this.life);
+            ctx.fillRect(this.x, this.y, this.size, this.size);
+            ctx.globalAlpha = 1.0;
+        }
+    }
+
+    function createExplosion(x, y, color) {
+        for (let i = 0; i < 12; i++) particles.push(new Particle(x, y, color));
+    }
+
+    function checkCollision(r1, r2) {
+        const padding = 6;
+        return (
+            r1.x + padding < r2.x + r2.width - padding &&
+            r1.x + r1.width - padding > r2.x + padding &&
+            r1.y + padding < r2.y + r2.height - padding &&
+            r1.y + r1.height - padding > r2.y + padding
+        );
+    }
+
+    function updateBinaryDisplay() {
+        if (binaryString.length === 0) { binaryBitsEl.innerText = '—'; return; }
+        const display = binaryString.slice(-20);
+        const prefix = binaryString.length > 20 ? '...' : '';
+        binaryBitsEl.innerText = prefix + display;
+    }
+
+    function formatBinaryGroups(bin) {
+        const reversed = bin.split('').reverse().join('');
+        const groups = reversed.match(/.{1,4}/g) || [];
+        return groups.map(g => g.split('').reverse().join('')).reverse().join(' ');
+    }
+
+    function resetGame() {
+        score = 0;
+        baseSpeed = 5; gameSpeed = 5;
+        obstacles = []; items = []; particles = [];
+        dino.reset();
+        frameCount = 0;
+        gameState = 'PLAYING';
+        isBoosting = false;
+        binaryString = '';
+        clearControls();
+        updateBinaryDisplay();
+        binaryResultEl.style.display = 'none';
+        binaryResultEl.innerHTML = '';
+        document.getElementById('gameOverlay').classList.add('hidden');
+        canvas.focus({ preventScroll: true });
+    }
+
+    function gameOver() {
+        gameState = 'GAMEOVER';
+        playSound('hit');
+        createExplosion(dino.x + 20, dino.y + 20, '#f27fa6');
+        clearControls();
+
+        if (score > highScore) {
+            highScore = Math.floor(score);
+            try { localStorage.setItem('nyan_dino_highscore_v2', String(highScore)); } catch (_) {}
+            highScoreEl.innerText = String(highScore).padStart(6, '0');
+        }
+
+        let decimalValue = 0, binaryDisplay = '—', bitsCount = binaryString.length;
+        if (bitsCount > 0) {
+            const safeBinary = binaryString.slice(-32);
+            decimalValue = parseInt(safeBinary, 2);
+            binaryDisplay = formatBinaryGroups(safeBinary);
+            binaryResultEl.innerHTML =
+                '<div class="binary-label">🧬 СОБРАННЫЙ БИНАРНЫЙ КОД</div>' +
+                '<div class="binary-code">' + binaryDisplay + '</div>' +
+                '<div class="binary-row"><span class="label">📊 Битов собрано:</span><span class="value">' + bitsCount + '</span></div>' +
+                '<div class="binary-row"><span class="label">🔢 В десятичной системе:</span><span class="value decimal-value">' + decimalValue + '</span></div>';
+        } else {
+            binaryResultEl.innerHTML =
+                '<div class="binary-label">🧬 СОБРАННЫЙ БИНАРНЫЙ КОД</div>' +
+                '<div class="binary-code">— пусто —</div>' +
+                '<div class="binary-row"><span class="label">Ты не собрал ни одного бита...</span></div>';
+        }
+        binaryResultEl.style.display = 'block';
+
+        document.getElementById('overlayTitle').innerText = 'ИГРА ОКОНЧЕНА';
+        document.getElementById('overlaySubtitle').innerHTML =
+            'ФИНАЛЬНЫЙ СЧЁТ: <strong>' + Math.floor(score) + '</strong>';
+        document.getElementById('startBtn').innerText = 'ИГРАТЬ СНОВА';
+        document.getElementById('gameOverlay').classList.remove('hidden');
+    }
+
+    /* ========== ВВОД: клавиши + указатель (мышь/палец) ========== */
+    const keys = {};
+    const pointers = new Map();
+    const gameKeys = new Set(['ArrowUp', 'ArrowDown', 'KeyW', 'KeyS', 'Space']);
+
+    function clearControls() {
+        Object.keys(keys).forEach(k => delete keys[k]);
+        pointers.clear();
+        isBoosting = false;
+    }
+    function held(key) {
+        return keys[key] || [...pointers.values()].includes(key);
+    }
+
+    function pointerToDinoY(e) {
+        const rect = canvas.getBoundingClientRect();
+        const yCanvas = (e.clientY - rect.top) * (canvas.height / rect.height);
+        dino.y = Math.max(10, Math.min(canvas.height - 50, yCanvas - dino.height / 2));
+    }
+
+    canvas.addEventListener('keydown', e => {
+        if (!gameKeys.has(e.code)) return;
+        e.preventDefault();
+        if (gameState !== 'PLAYING') return;
+        initAudio();
+        keys[e.code] = true;
+        if (e.code === 'Space' && !e.repeat) playSound('boost');
+    });
+    window.addEventListener('keyup', e => { delete keys[e.code]; });
+    canvas.addEventListener('blur', clearControls);
+
+    canvas.addEventListener('pointerdown', e => {
+        if (gameState !== 'PLAYING') return;
+        e.preventDefault();
+        initAudio();
+        canvas.focus({ preventScroll: true });
+        try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+        pointers.set(e.pointerId, 'move');
+        pointerToDinoY(e);
+    });
+
+    canvas.addEventListener('pointermove', e => {
+        if (gameState !== 'PLAYING') return;
+        if (pointers.get(e.pointerId) !== 'move') return;
+        e.preventDefault();
+        pointerToDinoY(e);
+    });
+
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => {
+        canvas.addEventListener(type, e => { pointers.delete(e.pointerId); });
+    });
+
+    [['touchUp', 'ArrowUp'], ['touchDown', 'ArrowDown'], ['touchBoost', 'Space']].forEach(([id, key]) => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        btn.addEventListener('pointerdown', e => {
+            if (gameState !== 'PLAYING') return;
+            e.preventDefault();
+            initAudio();
+            try { btn.setPointerCapture(e.pointerId); } catch (_) {}
+            pointers.set(e.pointerId, key);
+            if (key === 'Space') playSound('boost');
+        });
+        ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => {
+            btn.addEventListener(type, e => { pointers.delete(e.pointerId); });
+        });
+        btn.addEventListener('blur', () => {
+            [...pointers.entries()].forEach(([pid, val]) => { if (val === key) pointers.delete(pid); });
+        });
+    });
+
+    document.getElementById('startBtn').addEventListener('click', () => { initAudio(); resetGame(); });
+
+    window.addEventListener('blur', clearControls);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) clearControls(); });
+
+    /* ========== ЛОГИКА ШАГА (фиксированный 60 Гц) ========== */
+    function stepGame() {
+        isBoosting = gameState === 'PLAYING' && held('Space');
+        gameSpeed = baseSpeed * (isBoosting ? 1.7 : 1);
+
+        ctx.fillStyle = '#dff3fb';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach(star => {
+            if (gameState === 'PLAYING') {
+                star.x -= star.speed * (gameSpeed / 5);
+                if (star.x < 0) star.x = canvas.width;
+            }
+            ctx.fillStyle = star.color;
+            ctx.fillRect(star.x, star.y, star.size, star.size);
+        });
+
+        if (gameState === 'PLAYING') {
+            frameCount++;
+            score += 0.2 * (gameSpeed / 5);
+            currentScoreEl.innerText = String(Math.floor(score)).padStart(6, '0');
+
+            if (held('ArrowUp') || held('KeyW')) dino.vy = -dino.speed;
+            else if (held('ArrowDown') || held('KeyS')) dino.vy = dino.speed;
+            else dino.vy = 0;
+
+            if (frameCount % 450 === 0) baseSpeed = Math.min(12, baseSpeed + 0.3);
+
+            dino.update();
+
+            if (frameCount % Math.max(40, 85 - Math.floor(gameSpeed * 3)) === 0) {
+                obstacles.push(new Obstacle());
+            }
+            if (frameCount % 45 === 0) {
+                items.push(new CosmicItem());
+            }
+        }
+
+        for (let i = items.length - 1; i >= 0; i--) {
+            const item = items[i];
+            if (gameState === 'PLAYING') item.update();
+            item.draw();
+            if (gameState === 'PLAYING' && checkCollision(dino, item)) {
+                score += 50;
+                binaryString += item.symbol;
+                updateBinaryDisplay();
+                playSound('eat');
+                createExplosion(item.x + 15, item.y + 15, item.color);
+                items.splice(i, 1);
+            } else if (item.x < -40) {
+                items.splice(i, 1);
+            }
+        }
+
+        for (let i = obstacles.length - 1; i >= 0; i--) {
+            const obs = obstacles[i];
+            if (gameState === 'PLAYING') obs.update();
+            obs.draw();
+            if (gameState === 'PLAYING' && checkCollision(dino, obs)) {
+                gameOver();
+            } else if (obs.x < -50) {
+                obstacles.splice(i, 1);
+            }
+        }
+
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.update();
+            p.draw();
+            if (p.life <= 0) particles.splice(i, 1);
+        }
+
+        dino.draw();
+
+        currentScoreEl.textContent = String(Math.floor(score)).padStart(6, '0');
+    }
+
+    /* ========== ФИКСИРОВАННЫЙ ЦИКЛ ========== */
+    let previousTime = null;
+    let accumulator = 0;
+    const STEP = 1000 / 60;
+
+    function animate(now) {
+        if (previousTime === null) previousTime = now;
+        accumulator += Math.min(100, Math.max(0, now - previousTime));
+        previousTime = now;
+
+        while (accumulator >= STEP) {
+            stepGame();
+            accumulator -= STEP;
+        }
+        requestAnimationFrame(animate);
+    }
+
+    stepGame();
+    requestAnimationFrame(animate);
+})();
+
+/* Прокрутка к секциям при клике по навигации + активный пункт */
+(function () {
+    const nav = document.getElementById('navbar');
+    const links = [...nav.querySelectorAll('a')];
+
+    const update = () => {
+        const height = nav.getBoundingClientRect().height;
+        let current = links[0];
+        links.forEach(link => {
+            const el = document.querySelector(link.hash);
+            if (el && el.getBoundingClientRect().top <= height + 30) current = link;
+        });
+        links.forEach(link => {
+            link.classList.toggle('active', link === current);
+            if (link === current) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+        });
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+})();
+</script>
+
+</body>
+</html>
